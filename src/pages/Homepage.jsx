@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/HomepageStyles.css'; 
-
-const API_URL = 'https://www.apirequest.in/movie/api';
+import '../styles/HomepageStyles.scss'; 
+const API_URL = import.meta.env.VITE_APP_API_URL;
 
 const Homepage = () => {
   const [allMovies, setAllMovies] = useState([]);
@@ -10,6 +9,7 @@ const Homepage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(API_URL)
     fetch(API_URL)
       .then((res) => res.json())
       .then((data) => setAllMovies(data))
@@ -17,7 +17,7 @@ const Homepage = () => {
   }, []);
  
   const handleMovieClick = (movie) => {
-    navigate(`/MovieDetail/${movie.imdbID || movie.id}`);
+    navigate(`/details/${movie.imdbID || movie.id}`);
   };
 
 
@@ -26,7 +26,7 @@ const Homepage = () => {
   };
 
   const handleBuyNow = (movie) => {
-    alert(`Proceed to buy: ${movie.title}`);
+    alert(` Proceed to buy: ${movie.title}`);
     // Or navigate('/checkout') if you have a checkout page
   };
 

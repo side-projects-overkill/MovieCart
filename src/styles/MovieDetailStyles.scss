@@ -1,0 +1,120 @@
+$primary-bg: linear-gradient(to bottom right, #2c2c2c, #1e1e1e);
+$font-family: 'Segoe UI', sans-serif;
+$border-radius: 12px;
+$button-radius: 8px;
+$button-bg: #444;
+$button-hover-bg: #666;
+$highlight-color: #ffcc00;
+$text-color: #f0f0f0;
+$main-btn-bg: #007bff;
+
+.movie-detail {
+  padding: 24px;
+  font-family: $font-family;
+  color: $text-color;
+  background: $primary-bg;
+  max-width: 900px;
+  margin: 40px auto;
+  border-radius: $border-radius;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  position: relative;
+  transition: all 0.3s ease;
+
+  img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    color: $highlight-color;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: $button-bg;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: $button-radius;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+
+  &:hover {
+    background-color: $button-hover-bg;
+    transform: scale(1.05);
+  }
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-right: 10px;
+  background-color: $main-btn-bg;
+  color: #fff;
+  transition: background-color 0.3s, transform 0.2s;
+
+  &:hover {
+    background-color: $button-hover-bg;
+    transform: scale(1.05);
+  }
+}
+
+/* Cart Button */
+.cart-button {
+  background-color: $button-bg;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: $button-radius;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  display: inline-block;
+
+  &:hover {
+    background-color: $button-hover-bg;
+    transform: scale(1.05);
+  }
+}
+
+.images {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+
+  img {
+    width: 150px;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    transition: transform 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+  }
+}

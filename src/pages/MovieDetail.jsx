@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import  '../styles/MovieDetailStyles.css'; 
+import  '../styles/MovieDetailStyles.scss'; 
+const API_URL = import.meta.env.VITE_APP_API_URL;
+
 const MovieDetail = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('https://www.apirequest.in/movie/api')
+    fetch(API_URL)
       .then(res => res.json())
       .then(data => {
         const found = data.find(
@@ -27,7 +29,7 @@ const MovieDetail = () => {
   return (
     <div className="movie-detail">
       <button onClick={() => navigate('/')} className="back-button">← Back to Home</button>
-      <img src={movie.Poster} alt={movie.title} />
+      <img src={movie.Images[0]} alt={movie.title} />
       <h1>{movie.title}</h1>
       <p>{movie.plot}</p>
       <p>Director: {movie.director}</p>
