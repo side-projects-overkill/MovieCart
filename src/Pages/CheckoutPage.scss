@@ -1,0 +1,97 @@
+.checkout-container {
+  width: 60vw;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 32px 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  h2 {
+    color: #1a237e;
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+
+  .checkout-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .form-group {
+      width: 100%;
+      max-width: 440px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column; 
+      align-items: flex-start;  
+
+      label {
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 6px;
+        text-align: left;
+        min-width: 0;
+      }
+
+      input {
+        width: 100%;
+        max-width: 400px;
+        padding: 10px 12px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        outline: none;
+        box-sizing: border-box;
+
+        // Remove scroll/arrows in number fields
+        &[type="number"]::-webkit-inner-spin-button,
+        &[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        &[type="number"] {
+          -moz-appearance: textfield;
+        }
+
+        &:focus {
+          border-color: #1a237e;
+          box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.1);
+        }
+      }
+
+      .error {
+        color: red;
+        font-size: 14px;
+        margin-top: 4px;
+        width: 100%;
+        max-width: 400px;
+        text-align: left;
+      }
+    }
+
+    button {
+      padding: 10px 32px;
+      background-color: #1a237e;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #303f9f;
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
