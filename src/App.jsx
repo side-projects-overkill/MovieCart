@@ -2,10 +2,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css'
 
-import CheckoutPage from './Pages/CheckoutPage'; 
-import CartPage from './Pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage'; 
+import CartPage from './pages/CartPage';
 import MovieDetail from './pages/MovieDetail'
-import Homepage from './Pages/HomePage';
+import Homepage from './pages/HomePage';
 import Header from './components/Header';
 
 function App() {
