@@ -1,21 +1,25 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import './App.css'
-import Homepage from './pages/Homepage'
-import MovieDetail from './pages/MovieDetail'
-import Cart from './pages/Cart'
-function App() {
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 
+import './App.css'
+
+import CheckoutPage from './Pages/CheckoutPage'; 
+import CartPage from './Pages/CartPage';
+import MovieDetail from './pages/MovieDetail'
+import Homepage from './Pages/HomePage';
+import Header from './components/Header';
+
+function App() {
   return (
-    <BrowserRouter>
+<Router>
+      <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
         <Route path="/details/:id" element={<MovieDetail />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkoutPage" element={<CheckoutPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
-    </BrowserRouter>
+    </Router> 
   )
 }
 
 export default App;
-

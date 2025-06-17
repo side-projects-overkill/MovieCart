@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
-import '../styles/HomepageStyles.scss'; 
+import '../styles/HomepageStyles.scss';
 import {
   FireIcon,
   StarIcon,
@@ -10,10 +11,9 @@ import {
   SearchIcon,
   CreditCardIcon
 } from '@patternfly/react-icons';
-import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
- 
+
 const API_URL = import.meta.env.VITE_APP_API_URL;
 
 const Homepage = () => {
@@ -21,29 +21,36 @@ const Homepage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { cart, addToCart } = useContext(CartContext);
-
+  const { cart, addToCart, setAllMovies: setContextMovies} = useContext(CartContext);
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const res = await fetch(API_URL);
         const data = await res.json();
-        setAllMovies(data);
-        setError(''); 
+
+        // Assign price only once, store in context
+        const pricedData = data.map((movie, idx) => ({
+          ...movie,
+          price: (idx + 1) * 10,
+        }));
+
+        setAllMovies(pricedData);
+        setContextMovies(pricedData); // ⭐ Set in context for global access
+        setError('');
       } catch (err) {
         setError('Failed to fetch movies. Please try again later.');
       }
     };
     fetchMovies();
-  }, []);
- 
+  }, [setContextMovies]);
+
   const handleMovieClick = (movie) => {
     navigate(`/details/${movie.imdbID || movie.id}`);
   };
 
-  const handleAddToCart = (movie) => {
-    addToCart(movie);
-    toast.success(`${movie.title} added to cart!`, {
+  const handleAddToCart = (movieWithPrice) => {
+    addToCart(movieWithPrice);
+    toast.success(`${movieWithPrice.title} added to cart!`, {
       position: "top-right",
       autoClose: 2000,
       hideProgressBar: false,
@@ -54,6 +61,12 @@ const Homepage = () => {
   };
 
   const handleBuyNow = (movie) => {
+    // If not already in cart, add it
+    const movieId = movie.imdbID || movie.id;
+    const inCart = cart.some((item) => (item.imdbID || item.id) === movieId);
+    if (!inCart) {
+      addToCart(movie);
+    }
     toast.info(`Proceed to buy: ${movie.title}`, {
       position: "top-right",
       autoClose: 2000,
@@ -62,6 +75,7 @@ const Homepage = () => {
       pauseOnHover: true,
       draggable: true,
     });
+     navigate("/checkoutPage");
   };
 
   const topRated = allMovies.filter((m) => Number(m.imdbRating) >= 8);
@@ -78,7 +92,7 @@ const Homepage = () => {
 
   return (
     <>
-      <Header />
+      
       <div className="container">
         <h1><FilmIcon /> MovieMania Store</h1>
 
@@ -132,20 +146,21 @@ const MovieSection = ({ title, movies, onAdd, onBuy, onView, cart }) => {
     <div className="section">
       <h2>{title}</h2>
       <div className="cardsWrapper">
-        {movies.map((movie, idx) => {
-          const inCart = cart.some(
-            (item) => (item.imdbID || item.id) === (movie.imdbID || movie.id)
-          );
+        {movies.map((movie) => {
+          const movieId = movie.imdbID || movie.id;
+          const inCart = cart.some((item) => (item.imdbID || item.id) === movieId);
+          const price = movie.price;
+
           return (
-            <div key={movie.imdbID || movie.id} className="card">
+            <div key={movieId} className="card">
               <img
                 src={Array.isArray(movie.Images) ? movie.Images[2] : movie.Poster}
                 alt={movie.title}
                 className="cardImg"
-              />  
+              />
               <h3>{movie.title}</h3>
               <p>⭐ {movie.imdbRating}</p>
-              <p>₹{idx + 1}</p>
+              <p>₹{price}</p>
               <div className="cardButtons">
                 <button
                   onClick={() => onAdd(movie)}
