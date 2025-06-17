@@ -3,33 +3,22 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../styles/MovieDetailStyles.scss';
 import { CartContext } from '../context/CartContext';
 import { ShoppingCartIcon } from '@patternfly/react-icons';
-import Header from '../components/Header';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const API_URL = import.meta.env.VITE_APP_API_URL;
-
 const MovieDetail = () => {
   const { id } = useParams();
-  const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
-  const { cart, addToCart } = useContext(CartContext);
+  const [movie, setMovie] = useState(null);
+  const { cart, addToCart, moviesWithPrices } = useContext(CartContext);
 
   useEffect(() => {
-    const fetchMovie = async () => {
-      try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        const found = data.find(
-          (m) => m.imdbID === id || String(m.id) === id
-        );
-        setMovie(found);
-      } catch (err) {
-        console.error('Error fetching movie:', err);
-      }
-    };
-    fetchMovie();
-  }, [id]);
+    // Get the movie from context instead of API
+    const found = moviesWithPrices.find(
+      (m) => String(m.imdbID || m.id) === String(id)
+    );
+    setMovie(found);
+  }, [id, moviesWithPrices]);
 
   const handleAddToCart = () => {
     addToCart(movie);
@@ -52,6 +41,7 @@ const MovieDetail = () => {
       pauseOnHover: true,
       draggable: true,
     });
+     navigate("/checkoutPage"); 
   };
 
   if (!movie) return <div>Loading...</div>;
@@ -62,11 +52,10 @@ const MovieDetail = () => {
 
   return (
     <>
-      <Header />
       <ToastContainer />
 
       <div className="movie-detail">
-        <img src={movie.Images[0]} alt={movie.title} />
+        <img src={movie.Images?.[0] || movie.Poster} alt={movie.title} />
         <h1>{movie.title}</h1>
         <p>{movie.plot}</p>
         <p>Director: {movie.director}</p>
@@ -75,6 +64,7 @@ const MovieDetail = () => {
         <p>Language: {movie.language}</p>
         <p>Awards: {movie.Awards}</p>
         <p>Rating: {movie.imdbRating}</p>
+        <p><strong>Price:</strong> ₹{movie.price}</p>
 
         <button onClick={handleAddToCart} disabled={inCart}>
           <ShoppingCartIcon /> {inCart ? 'Added' : 'Add to Cart'}
