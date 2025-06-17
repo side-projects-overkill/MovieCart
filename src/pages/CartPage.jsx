@@ -6,7 +6,7 @@ import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
-  const { cart, removeFromCart, clearCart } = useContext(CartContext);
+  const { cart, removeFromCart} = useContext(CartContext);
   const navigate = useNavigate();
   const [items, setCartItems] = useState([]);
 
@@ -60,7 +60,6 @@ const CartPage = () => {
           className="card-buttons"
           onClick={() => {
             navigate("/checkoutPage");
-            clearCart();
           }}
           disabled={items.length === 0}
         >
