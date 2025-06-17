@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import "./CheckoutPage.scss";
+import "../styles/CheckoutPage.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-
+import { CartContext } from "../context/CartContext";
 const formFields = [
   { label: "Name", type: "text", name: "name" },
   { label: "Email", type: "email", name: "email" },
@@ -14,6 +14,7 @@ const formFields = [
   { label: "Expiry Date (MM/YY)", type: "text", name: "expiry" },
   { label: "CVV", type: "number", name: "cvv" },
 ];
+
 
 const validationSchema = yup.object({
   name: yup.string().min(2, "Min 2 characters").required(),
@@ -25,9 +26,10 @@ const validationSchema = yup.object({
 });
 
 const CheckoutPage = () => {
+  const {clearCart} = useContext(CartContext);
   const navigate = useNavigate();
-
   return (
+  
     <div className="checkout-container">
       <h2>Checkout</h2>
       <Formik
@@ -42,7 +44,10 @@ const CheckoutPage = () => {
         validationSchema={validationSchema}
         onSubmit={() => {
           toast.success("Checkout successful!");
-          setTimeout(() => {navigate("/Page")}, 2000);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+          clearCart();
         }}
       >
         {({ isValid, dirty }) => (

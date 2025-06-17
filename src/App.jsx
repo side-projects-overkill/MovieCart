@@ -1,18 +1,25 @@
-import React from 'react'
-import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'; 
-import CheckoutPage from './Pages/CheckoutPage'; 
-import CartPage from './Pages/CartPage';
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import "./App.css";
+
+import CheckoutPage from "./pages/CheckoutPage";
+import CartPage from "./pages/CartPage";
+import MovieDetail from "./pages/MovieDetail";
+import Homepage from "./pages/Homepage";
+import Header from "./components/Header";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/MovieCart">
+      <Header />
       <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/details/:id" element={<MovieDetail />} />
         <Route path="/checkoutPage" element={<CheckoutPage />} />
-        <Route path="/cartPage" element={<CartPage />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
-    </Router> 
-  )
+    </Router>
+  );
 }
 
 export default App;

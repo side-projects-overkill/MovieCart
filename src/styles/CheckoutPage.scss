@@ -1,0 +1,188 @@
+$primary-bg: linear-gradient(to bottom right, #2c2c2c, #1e1e1e);
+$card-bg: linear-gradient(to bottom right, #2c2c2c, #1e1e1e);
+$border-radius: 12px;
+$input-radius: 8px;
+$button-radius: 6px;
+$button-bg: #444;
+$button-hover-bg: #666;
+$font-family: 'Segoe UI', sans-serif;
+
+$card-border: #ddd;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+$primary-green: #28A745;
+$primary-green-hover: #218838;
+$danger-red: #DC3545;
+$danger-red-hover: #A71D2A;
+$title-color: #f0f0f0;
+$text-color: #f0f0f0;
+$summary-title: #f0f0f0;
+
+.checkout-container {
+  background: $primary-bg;
+  min-height: 100vh;
+  padding: 40px;
+  font-family: $font-family;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: $border-radius;
+
+  h2 {
+    color: $title-color;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  .checkout-card {
+    background: $card-bg;
+    border-radius: $border-radius;
+    box-shadow: $shadow;
+    border: 1px solid $card-border;
+    padding: 32px;
+    min-width: 400px;
+    color: $text-color;
+    margin-bottom: 32px;
+
+    h3 {
+      color: $summary-title;
+      margin-bottom: 16px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .movie-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 12px 0;
+    }
+
+    .movie-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid #333;
+      font-size: 16px;
+      color: $text-color;
+    }
+
+    .movie-title {
+      font-weight: 500;
+    }
+
+    .movie-price {
+      font-weight: 600;
+      color: $primary-green;
+    }
+  }
+
+  form {
+    background: $card-bg;
+    border-radius: $border-radius;
+    box-shadow: $shadow;
+    border: 1px solid $card-border;
+    padding: 32px;
+    min-width: 400px;
+    color: $text-color;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; // Align labels and inputs to the left
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    label {
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: $title-color;
+      display: flex;
+      flex-direction: column; // Keep label content stacked if needed
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    input, select {
+      padding: 10px;
+      border-radius: $input-radius;
+      border: 1px solid $card-border;
+      background: #222;
+      color: $text-color;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 10px;
+      width: 90%; // Reduced width from 100% to 70%
+      min-width: 200px; // Optional: ensures fields don't get too small
+      max-width: 100%;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type="number"] {
+      -moz-appearance: textfield; // Firefox
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 14px;
+      background-color: $primary-green;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: $button-radius;
+      cursor: pointer;
+      font-family: $font-family;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $primary-green-hover;
+      }
+
+      &:disabled {
+        background-color: #888 !important;
+        color: #ccc !important;
+        cursor: not-allowed !important;
+        opacity: 0.7;
+      }
+    }
+
+    .error {
+      color: $danger-red;
+      font-size: 14px;
+      margin-top: -6px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+  }
+
+  .back-btn {
+    margin-top: 24px;
+    padding: 10px 24px;
+    background-color: $button-bg;
+    color: #fff;
+    border: none;
+    border-radius: $button-radius;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: $font-family;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-hover-bg;
+    }
+  }
+}
